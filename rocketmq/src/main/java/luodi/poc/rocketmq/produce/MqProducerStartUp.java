@@ -1,17 +1,11 @@
 package luodi.poc.rocketmq.produce;
 
-import org.apache.rocketmq.client.exception.MQBrokerException;
-import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.remoting.common.RemotingHelper;
-import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -19,29 +13,41 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @Component
-public class MqProducerStartUp extends MqProducerUtil {
+public class MqProducerStartUp extends MqProducer {
+    public static AtomicInteger msgId = new AtomicInteger(0);
+    public static String TOPIC_NAME = "TopicTest";
+    @Autowired
+    MqProducer mqProducer;
+
+
     private final static Logger log = LoggerFactory.getLogger(MqProducerStartUp.class);
     public static AtomicInteger producedMsgCount = new AtomicInteger(0);
 
     @Scheduled(/*cron = "0 0/1 * * * ?"*/ fixedDelay = 1000 * 10)
     public void produceMessage() {
         log.info("access into produceMessage");
-        doProduceMessage();
+
     }
 
     @Scheduled(/*cron = "0 0/1 * * * ?"*/ fixedDelay = 1000 * 10)
     public void produceMessage2() {
-        log.info("access into produceMessage2");
-        doProduceMessage();
+        try {
+            mqProducer.sendMsg("msgId=" + msgId.incrementAndGet() + ", produced by producer2.", TOPIC_NAME, "producer2");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Scheduled(/*cron = "0 0/1 * * * ?"*/ fixedDelay = 1000 * 10)
     public void produceMessage3() {
-        log.info("access into produceMessage3");
-        doProduceMessage();
+        try {
+            mqProducer.sendMsg("msgId=" + msgId.incrementAndGet() + ", produced by producer2.", TOPIC_NAME, "producer3");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void doProduceMessage() {
+    /*private void doSendMessage() {
         for (int i = 1; i <= 50; i++) {
             Message msg = null;
             int paymentId = producedMsgCount.incrementAndGet();
@@ -69,7 +75,7 @@ public class MqProducerStartUp extends MqProducerUtil {
             log.info("produced a new message, paymentId : {} >>> {}", paymentId, sendResult);
 //            log.info(sendResult.toString());
         }
-    }
+    }*/
 
 
 }
