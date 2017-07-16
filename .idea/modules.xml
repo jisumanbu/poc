@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/io/io.iml" filepath="$PROJECT_DIR$/io/io.iml" />
       <module fileurl="file://$PROJECT_DIR$/poc.iml" filepath="$PROJECT_DIR$/poc.iml" />
       <module fileurl="file://$PROJECT_DIR$/rocketmq/rocketmq.iml" filepath="$PROJECT_DIR$/rocketmq/rocketmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/serialization/serialization.iml" filepath="$PROJECT_DIR$/serialization/serialization.iml" />
     </modules>
   </component>
 </project>

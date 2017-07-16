@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Concrete consumer listener must provide group/topic, tags
  */
 public abstract class AbstractConsumer {
-    private final static Logger log = LoggerFactory.getLogger(AbstractConsumer.class);
+    private final static Logger logger = LoggerFactory.getLogger(AbstractConsumer.class);
 
     public DefaultMQPushConsumer consumer = new DefaultMQPushConsumer();
     public AtomicInteger consumedMsgCount = new AtomicInteger(0);
@@ -30,9 +30,9 @@ public abstract class AbstractConsumer {
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.setMessageModel(getMessageModel());
         try {
-            consumer.subscribe(getTopic(), "*");
+            consumer.subscribe(getTopic(), getTags());
         } catch (MQClientException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         consumer.setMessageListener(getListener());
@@ -40,7 +40,7 @@ public abstract class AbstractConsumer {
         try {
             consumer.start();
         } catch (MQClientException e) {
-            log.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }
@@ -52,6 +52,8 @@ public abstract class AbstractConsumer {
     public abstract String getConsumerGroup();
 
     public abstract String getTopic();
+
+    public abstract String getTags();
 
     public abstract MessageListener getListener();
 

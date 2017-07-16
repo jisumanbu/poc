@@ -11,9 +11,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="io" target="1.5" />
-      <module name="poc" target="1.5" />
-      <module name="rocketmq" target="1.5" />
+      <module name="io" target="1.8" />
+      <module name="poc" target="1.8" />
+      <module name="rocketmq" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
