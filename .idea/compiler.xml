@@ -6,14 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="io" />
-        <module name="rocketmq" />
+        <module name="communication" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="communication" target="1.5" />
       <module name="io" target="1.8" />
-      <module name="poc" target="1.8" />
-      <module name="rocketmq" target="1.8" />
+      <module name="poc" target="1.5" />
+      <module name="rocketmq" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
